@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curvelo Car Classic</title>
+  <link rel="stylesheet" href="style.css?v=cinematic-premium-1">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Menu principal">
+      <a class="is-active" href="index.html">Início</a>
+      <a href="o-grupo.html">O Grupo</a>
+      <a href="nossa-historia.html">Nossa História</a>
+      <a href="eventos.html">Eventos</a>
+      <a href="galeria.html">Galeria</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+    <div class="header-social" aria-label="Redes sociais">
+      <a class="header-social__link header-social__link--facebook" href="#" aria-label="Facebook"></a>
+      <a class="header-social__link header-social__link--instagram" href="#" aria-label="Instagram"></a>
+      <a class="header-social__link header-social__link--youtube" href="#" aria-label="YouTube"></a>
+    </div>
+  </header>
+
+  <main class="hero-preview">
+    <section class="hero-stage" aria-label="Curvelo Car Classic">
+      <img class="hero-stage__base" src="img/carros/hero site pai.png?v=sem-icones-1" alt="Curvelo Car Classic">
+
+      <span class="smoke smoke--old-car" aria-hidden="true"></span>
+      <span class="smoke smoke--garage-wall" aria-hidden="true"></span>
+      <span class="mascote-backlight" aria-hidden="true"></span>
+      <img class="hero-mascote" src="img/mascoteanimado.webp" alt="" aria-hidden="true">
+
+      <img class="poster-slot poster-slot--2017" src="img/cartazess/2017.png" alt="" aria-hidden="true">
+      <img class="poster-slot poster-slot--2019" src="img/cartazess/2019.png" alt="" aria-hidden="true">
+      <img class="poster-slot poster-slot--2023" src="img/cartazess/2023.png" alt="" aria-hidden="true">
+      <img class="poster-slot poster-slot--2024" src="img/cartazess/2024.jpeg" alt="" aria-hidden="true">
+      <img class="poster-slot poster-slot--2025" src="img/cartazess/2025.png" alt="" aria-hidden="true">
+
+      <button class="road-year road-year--2016 is-empty" type="button" data-year="2016" aria-label="Cartaz de 2016 indisponível"></button>
+      <button class="road-year road-year--2017" type="button" data-poster="img/cartazess/2017.png" data-title="Cartaz do encontro de 2017" aria-label="Abrir cartaz do encontro de 2017"></button>
+      <button class="road-year road-year--2018 is-empty" type="button" data-year="2018" aria-label="Cartaz de 2018 indisponível"></button>
+      <button class="road-year road-year--2019" type="button" data-poster="img/cartazess/2019.png" data-title="Cartaz do encontro de 2019" aria-label="Abrir cartaz do encontro de 2019"></button>
+      <button class="road-year road-year--2020 is-empty" type="button" data-year="2020" aria-label="Cartaz de 2020 indisponível"></button>
+      <button class="road-year road-year--2021 is-empty" type="button" data-year="2021" aria-label="Cartaz de 2021 indisponível"></button>
+      <button class="road-year road-year--2022 is-empty" type="button" data-year="2022" aria-label="Cartaz de 2022 indisponível"></button>
+      <button class="road-year road-year--2023" type="button" data-poster="img/cartazess/2023.png" data-title="Cartaz do encontro de 2023" aria-label="Abrir cartaz do encontro de 2023"></button>
+      <button class="road-year road-year--2024" type="button" data-poster="img/cartazess/2024.jpeg" data-title="Cartaz do encontro de 2024" aria-label="Abrir cartaz do encontro de 2024"></button>
+      <button class="road-year road-year--2025" type="button" data-poster="img/cartazess/2025.png" data-title="Cartaz do encontro de 2025" aria-label="Abrir cartaz do encontro de 2025"></button>
+
+      <button class="poster-hitbox poster-hitbox--2017" type="button" data-poster="img/cartazess/2017.png" data-title="Cartaz do encontro de 2017" aria-label="Abrir cartaz do encontro de 2017"></button>
+      <button class="poster-hitbox poster-hitbox--2019" type="button" data-poster="img/cartazess/2019.png" data-title="Cartaz do encontro de 2019" aria-label="Abrir cartaz do encontro de 2019"></button>
+      <button class="poster-hitbox poster-hitbox--2023" type="button" data-poster="img/cartazess/2023.png" data-title="Cartaz do encontro de 2023" aria-label="Abrir cartaz do encontro de 2023"></button>
+      <button class="poster-hitbox poster-hitbox--2024" type="button" data-poster="img/cartazess/2024.jpeg" data-title="Cartaz do encontro de 2024" aria-label="Abrir cartaz do encontro de 2024"></button>
+      <button class="poster-hitbox poster-hitbox--2025" type="button" data-poster="img/cartazess/2025.png" data-title="Cartaz do encontro de 2025" aria-label="Abrir cartaz do encontro de 2025"></button>
+    </section>
+
+  </main>
+
+  <div class="poster-modal" id="poster-modal" aria-hidden="true">
+    <button class="poster-modal__backdrop" type="button" aria-label="Fechar cartaz"></button>
+    <div class="poster-modal__content" role="dialog" aria-modal="true" aria-label="Cartaz ampliado">
+      <button class="poster-modal__close" type="button" aria-label="Fechar cartaz">x</button>
+      <img class="poster-modal__image" src="" alt="">
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("poster-modal");
+    const modalImage = modal.querySelector(".poster-modal__image");
+    const closeButtons = modal.querySelectorAll(".poster-modal__backdrop, .poster-modal__close");
+
+    document.querySelectorAll("[data-poster]").forEach((button) => {
+      button.addEventListener("click", () => {
+        modalImage.src = button.dataset.poster;
+        modalImage.alt = button.dataset.title;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        button.blur();
+      });
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        modalImage.src = "";
+        modalImage.alt = "";
+        document.activeElement.blur();
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("is-open")) {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        modalImage.src = "";
+        modalImage.alt = "";
+        document.activeElement.blur();
+      }
+    });
+  </script>
+</body>
+</html>

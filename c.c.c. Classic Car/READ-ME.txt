@@ -1,0 +1,6 @@
+C.C.C. Classic Car
+
+Site estatico transformado para uma garagem de carros classicos, com textos,
+imagens e tema visual atualizados para restauracao, curadoria e showroom.
+
+Base original: template HTML Codex, mantido conforme licenca em LICENSE.txt.

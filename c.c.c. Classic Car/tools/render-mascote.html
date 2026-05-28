@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../node_modules/three/build/three.module.js",
+        "three/addons/": "../node_modules/three/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(28, 1, 0.01, 100);
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+      preserveDrawingBuffer: true
+    });
+
+    renderer.setClearColor(0x000000, 0);
+    renderer.setPixelRatio(1);
+    renderer.setSize(768, 768);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    document.body.appendChild(renderer.domElement);
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x2a170b, 2.6));
+
+    const keyLight = new THREE.DirectionalLight(0xffe2b0, 3.2);
+    keyLight.position.set(3, 4, 5);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xa86c35, 1.4);
+    fillLight.position.set(-4, 2, 3);
+    scene.add(fillLight);
+
+    const loader = new GLTFLoader();
+    const gltf = await loader.loadAsync("../img/mascoteanimado.glb");
+    const model = gltf.scene;
+    scene.add(model);
+
+    model.traverse((child) => {
+      if (child.isMesh) {
+        child.frustumCulled = false;
+      }
+    });
+
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const maxAxis = Math.max(size.x, size.y, size.z);
+
+    const scale = 2.15 / maxAxis;
+    model.scale.setScalar(scale);
+    model.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+
+    camera.position.set(0, 1.3, 4.8);
+    camera.up.set(0, 1, 0);
+    camera.lookAt(0, 0, 0);
+
+    const mixer = gltf.animations.length ? new THREE.AnimationMixer(model) : null;
+    let duration = 2.4;
+
+    if (mixer) {
+      const clip = gltf.animations[0];
+      duration = clip.duration || duration;
+      const action = mixer.clipAction(clip);
+      action.play();
+    }
+
+    window.__duration = duration;
+    window.__ready = true;
+    window.__renderFrame = (time) => {
+      if (mixer) {
+        mixer.setTime(time % duration);
+      }
+      renderer.render(scene, camera);
+      return true;
+    };
+
+    window.__renderFrame(0);
+  </script>
+</body>
+</html>

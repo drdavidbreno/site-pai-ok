@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "c.c.c. Classic Car",
+			"path": "."
+		},
+		{
+			"name": "novo teste",
+			"path": "../../novo teste"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "c.c.c. Classic Car"
+	}
+}
